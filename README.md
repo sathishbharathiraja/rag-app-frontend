@@ -1,32 +1,41 @@
-# React + TypeScript + Vite
+# BigHammer RAG Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+This is the user interface for the BigHammer RAG Application, allowing users to securely upload documents and interact with an AI that retrieves and cites information from their private data.
 
-Currently, two official plugins are available:
+## 🏗️ Architecture
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Framework:** React 18
+- **Bundler:** Vite (for lightning-fast HMR and native ES Modules)
+- **Styling:** Tailwind CSS (for rapid, responsive UI development)
+- **State Management & Routing:** React Router DOM
+- **HTTP Client:** Axios (configured with JWT Interceptors for security)
 
-## React Compiler
+## 🚀 Key Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. **Secure Authentication:** Implements JWT-based authentication to ensure users can only access and query their own private documents.
+2. **Real-time Document Uploads:** Seamless UI for uploading PDFs, TXTs, and DOCX files.
+3. **Interactive AI Chat:** A clean chat interface that communicates with the FastAPI backend, displaying both the AI's generated answer and the source chunks it retrieved from the database.
+4. **Vite Optimization:** Bypasses legacy Webpack bottlenecks for instant local server startups.
 
-## Expanding the Oxlint configuration
+## 🛠️ Setup & Installation
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+### Option 1: Docker Compose (Recommended)
+The entire application is orchestrated using Docker Compose. From the root directory, simply run:
+```bash
+docker-compose up -d --build
 ```
+The frontend will automatically be available at `http://localhost:5173`. 
+*(Note: To prevent Chrome HSTS issues during local testing, access the app via `http://127.0.0.1:5173`)*
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### Option 2: Local Development
+1. Ensure Node.js 20+ is installed.
+2. Install dependencies: `npm install`
+3. Run the development server: `npm run dev`
+4. The application will start at `http://127.0.0.1:5173`.
+
+## 📁 Project Structure
+
+- `/src/api`: Axios client configuration and network interceptors
+- `/src/components`: Reusable UI components (Modals, Buttons, Forms)
+- `/src/pages`: Main application views (Dashboard, Login, Chat)
+- `/src/assets`: Static images and CSS files
